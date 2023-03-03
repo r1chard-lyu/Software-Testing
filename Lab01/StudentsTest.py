@@ -44,3 +44,5 @@ class Test(unittest.TestCase):
         print("\nFinish get_name test\n")
         pass
 
+if __name__ == '__main__': # pragma: no cover
+    unittest.main()

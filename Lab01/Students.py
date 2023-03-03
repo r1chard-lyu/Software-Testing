@@ -13,3 +13,8 @@ class Students:
         else:
             return self.name[user_id]
 
+
+if __name__ == '__main__': # pragma: no cover
+    students = Students() 
+    print("id", students.set_name('John'))
+    print("name", students.get_name(0))
