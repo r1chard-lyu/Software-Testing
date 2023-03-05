@@ -6,8 +6,7 @@ from app import Application
 class ApplicationTest(unittest.TestCase):
 
     def setUp(self):
-        with open("name_list.txt", "w") as f:
-            f.write("William\nOliver\nHenry\nLiam\n")
+        
         self.app = Application()
         self.app.selected = ["William", "Oliver", "Henry"]
 
