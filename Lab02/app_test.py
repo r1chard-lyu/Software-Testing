@@ -1,7 +1,7 @@
 import unittest
-from unittest.mock import patch, MagicMock, Mock
-from app import Application,MailSystem
-from io import StringIO
+from unittest.mock import patch, MagicMock
+from app import Application
+
 
 class ApplicationTest(unittest.TestCase):
 
@@ -10,7 +10,7 @@ class ApplicationTest(unittest.TestCase):
             f.write("William\nOliver\nHenry\nLiam\n")
         self.app = Application()
         self.app.selected = ["William", "Oliver", "Henry"]
-        self.app.mailSystem = MailSystem()
+
 
         
     @patch('app.Application.get_random_person')
