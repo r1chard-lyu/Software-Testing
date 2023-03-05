@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, Mock
 from app import Application
 
 
@@ -29,8 +29,8 @@ class ApplicationTest(unittest.TestCase):
 
         #Finish fake_mail()
         #Spy on send() and write()
-        spy_mailSystem_write = MagicMock(wraps=self.app.mailSystem.write)
-        spy_mailSystem_send = MagicMock(wraps=self.app.mailSystem.send)
+        spy_mailSystem_write = Mock(wraps=self.app.mailSystem.write)
+        spy_mailSystem_send = Mock(wraps=self.app.mailSystem.send)
         for i in range(len(self.app.selected)):
 
             context = spy_mailSystem_write(self.app.selected[i])
