@@ -8,3 +8,5 @@
 
 ![example workflow](https://github.com/Richard-YH/311555009-ST-2023/actions/workflows/Lab02-CI.yml/badge.svg)
 
+![example workflow](https://github.com/Richard-YH/311555009-ST-2023/actions/workflows/Lab03-CI.yml/badge.svg)
+
