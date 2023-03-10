@@ -6,11 +6,21 @@ from app import Application
 class ApplicationTest(unittest.TestCase):
 
     def setUp(self):
-        
         self.app = Application()
         self.app.selected = ["William", "Oliver", "Henry"]
 
-
+    # Finish fake_mail() and print the mail context.
+    def fake_mail(self):
+        # Spy on send() and write().
+        spy_mailSystem_write = Mock(wraps=self.app.mailSystem.write)
+        spy_mailSystem_send = Mock(wraps=self.app.mailSystem.send)
+        self.app.mailSystem.write = spy_mailSystem_write
+        self.app.mailSystem.send = spy_mailSystem_send
+        self.app.notify_selected()
+        for call in self.app.mailSystem.send.call_args_list:
+            context = call[0][1]
+            print(context)
+        
         
     @patch('app.Application.get_random_person')
     def test(self, mock_get_random_person):
@@ -24,33 +34,15 @@ class ApplicationTest(unittest.TestCase):
         self.assertEqual(person,"Liam")
         print(f"{person} is selected")
 
+        self.fake_mail()
+        #Examine the call count of send() and write() using assertEqual.
+        self.assertEqual(self.app.mailSystem.write.call_count,4)
+        self.assertEqual(self.app.mailSystem.send.call_count,4)
+        print(self.app.mailSystem.write.call_args_list)
+        print(self.app.mailSystem.send.call_args_list)
 
-       
 
-        
-        #Finish fake_mail()
-        def fake_mail():
-            self.app.notify_selected()
-            # Spy on send() and write()
-            spy_mailSystem_write = Mock(wraps=self.app.mailSystem.write)
-            spy_mailSystem_send = Mock(wraps=self.app.mailSystem.send)
-            for i in range(len(self.app.selected)):
-                context = spy_mailSystem_write(self.app.selected[i])
-                spy_mailSystem_send(person,context)
-                self.assertEqual(context,f"Congrats, {self.app.selected[i]}!")
 
-                # Print the mail context.
-                print(context)
-
-            # Examine the call count of send() and write() using assertEqual.
-            print("\n\n")
-            self.assertEqual(spy_mailSystem_write.call_count,4)
-            self.assertEqual(spy_mailSystem_send.call_count,4)
-            print(spy_mailSystem_write.call_args_list)
-            print(spy_mailSystem_send.call_args_list)
-
-        fake_mail()
 
 if __name__ == '__main__':
     unittest.main()
-
