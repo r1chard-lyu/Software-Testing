@@ -3,12 +3,12 @@ import random
 
 class MailSystem:
 	def write(self, name):
-		#print('--write mail for ' + name + '--')
+		print('--write mail for ' + name + '--')
 		context = 'Congrats, ' + name + '!'
 		return context
 
 	def send(self, name, context):
-		#print('--send mail to ' + name + '--')
+		print('--send mail to ' + name + '--')
 		# TODO
 		pass
 

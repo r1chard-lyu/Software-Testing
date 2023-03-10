@@ -16,7 +16,14 @@ class ApplicationTest(unittest.TestCase):
         spy_mailSystem_send = Mock(wraps=self.app.mailSystem.send)
         self.app.mailSystem.write = spy_mailSystem_write
         self.app.mailSystem.send = spy_mailSystem_send
-        self.app.notify_selected()
+
+        # Ignore print information
+        with patch('builtins.print'):
+            self.app.notify_selected()
+        # Shoe notify message
+        print('--notify selected--')
+
+        
         for call in self.app.mailSystem.send.call_args_list:
             context = call[0][1]
             print(context)
