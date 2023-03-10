@@ -24,30 +24,32 @@ class ApplicationTest(unittest.TestCase):
         self.assertEqual(person,"Liam")
         print(f"{person} is selected")
 
-        self.app.notify_selected()
 
+       
+
+        
         #Finish fake_mail()
-        #Spy on send() and write()
-        spy_mailSystem_write = Mock(wraps=self.app.mailSystem.write)
-        spy_mailSystem_send = Mock(wraps=self.app.mailSystem.send)
-        for i in range(len(self.app.selected)):
+        def fake_mail():
+            self.app.notify_selected()
+            # Spy on send() and write()
+            spy_mailSystem_write = Mock(wraps=self.app.mailSystem.write)
+            spy_mailSystem_send = Mock(wraps=self.app.mailSystem.send)
+            for i in range(len(self.app.selected)):
+                context = spy_mailSystem_write(self.app.selected[i])
+                spy_mailSystem_send(person,context)
+                self.assertEqual(context,f"Congrats, {self.app.selected[i]}!")
 
-            context = spy_mailSystem_write(self.app.selected[i])
-            spy_mailSystem_send(person,context)
-            self.assertEqual(context,f"Congrats, {self.app.selected[i]}!")
+                # Print the mail context.
+                print(context)
 
-            #print the mail context.
+            # Examine the call count of send() and write() using assertEqual.
+            print("\n\n")
+            self.assertEqual(spy_mailSystem_write.call_count,4)
+            self.assertEqual(spy_mailSystem_send.call_count,4)
+            print(spy_mailSystem_write.call_args_list)
+            print(spy_mailSystem_send.call_args_list)
 
-            print(context)
-
-        #Examine the call count of send() and write() using assertEqual.
-        print("\n\n")
-        self.assertEqual(spy_mailSystem_write.call_count,4)
-        self.assertEqual(spy_mailSystem_send.call_count,4)
-        print(spy_mailSystem_write.call_args_list)
-        print(spy_mailSystem_send.call_args_list)
-
-    
+        fake_mail()
 
 if __name__ == '__main__':
     unittest.main()
