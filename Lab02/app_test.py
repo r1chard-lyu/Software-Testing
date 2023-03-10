@@ -34,7 +34,10 @@ class ApplicationTest(unittest.TestCase):
         self.assertEqual(person,"Liam")
         print(f"{person} is selected")
 
+
+
         self.fake_mail()
+        print("\n\n")
         #Examine the call count of send() and write() using assertEqual.
         self.assertEqual(self.app.mailSystem.write.call_count,4)
         self.assertEqual(self.app.mailSystem.send.call_count,4)
