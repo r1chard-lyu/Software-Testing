@@ -5,14 +5,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
-
-# Initialize the webdriver for github
 from selenium.webdriver.chrome.options import Options
 options = Options()
 options.add_argument('--headless')
 options.add_argument('--window-size=1920,1080')
 options.add_argument('--disable-gpu')
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+driver_path = ChromeDriverManager().install()
+driver = webdriver.Chrome(executable_path=driver_path, options=options)
+
 
 
 print(f"[*] Launch browser and navigate to NYCU home page")
@@ -60,5 +60,6 @@ print(f"Title of Second Result for student id : \"{second_result[2].text}\"\n")
 
 
 print(f"[*] Close the browser\n")
-driver.close()
+driver.quit()
+
 
