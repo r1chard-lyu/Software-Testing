@@ -79,7 +79,7 @@ bool LabPass::runOnModule(Module &M) {
   FunctionCallee printfCallee = printfPrototype(M);
 
   // Create a global variable to store the current depth of the call stack.
-  GlobalVariable* depthGV = createGlobalVariable(M, "intDepth");
+  GlobalVariable* depth = createGlobalVariable(M, "intDepth");
 
   // Iterate over each function in the module.
   for (auto &F : M){
@@ -92,19 +92,19 @@ bool LabPass::runOnModule(Module &M) {
 
       // Insert code at the beginning of the function to increment the call stack depth.
       IRBuilder<> BuilderEntry(&*F.getEntryBlock().getFirstInsertionPt());
-      Value *ld = BuilderEntry.CreateLoad(BuilderEntry.getInt32Ty(), depthGV, depthGV->getName());
-      Value *add = BuilderEntry.CreateAdd(ld, BuilderEntry.getInt32(1));
-      BuilderEntry.CreateStore(add, depthGV);
+      Value *ld_1 = BuilderEntry.CreateLoad(BuilderEntry.getInt32Ty(), depth, depth->getName());
+      Value *add = BuilderEntry.CreateAdd(ld_1, BuilderEntry.getInt32(1));
+      BuilderEntry.CreateStore(add, depth);
 
       // Print the current call stack depth and function name.
-      BuilderEntry.CreateCall( printfCallee, { getI8StrVal(M, "%*s", "strIndent"), ld, getI8StrVal(M, "", "strSpaces")} );
+      BuilderEntry.CreateCall( printfCallee, { getI8StrVal(M, "%*s", "strIndent"), ld_1, getI8StrVal(M, "", "strSpaces")} );
       BuilderEntry.CreateCall( printfCallee, { getI8StrVal(M, "%s: %p\n", "strAddr"), BuilderEntry.CreateGlobalStringPtr(F.getName()), &F });
 
       // Insert code at the end of the function to decrement the call stack depth.
       IRBuilder<> BuilderEnd(&*(--F.back().end()));
-      Value *ld2 = BuilderEnd.CreateLoad(BuilderEnd.getInt32Ty(), depthGV, depthGV->getName());
-      Value *sub = BuilderEnd.CreateSub(ld2, BuilderEnd.getInt32(1));
-      BuilderEnd.CreateStore(sub, depthGV);
+      Value *ld_2 = BuilderEnd.CreateLoad(BuilderEnd.getInt32Ty(), depth, depth->getName());
+      Value *sub = BuilderEnd.CreateSub(ld_2, BuilderEnd.getInt32(1));
+      BuilderEnd.CreateStore(sub, depth);
 
     }
   }
