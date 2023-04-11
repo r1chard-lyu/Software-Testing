@@ -2,6 +2,7 @@ import unittest
 from calculator import Calculator
 from math import exp
 
+
 class ApplicationTest(unittest.TestCase):
     calc = Calculator()
 
@@ -15,7 +16,7 @@ class ApplicationTest(unittest.TestCase):
 
         # Test invalid input
         self.assertRaises(TypeError, self.calc.add, 1, '2')
-    
+
     def test_divide(self):
         # Test valid inputs
         for i in range(5):
@@ -27,7 +28,6 @@ class ApplicationTest(unittest.TestCase):
         # Test invalid input
         self.assertRaises(ZeroDivisionError, self.calc.divide, 1, 0)
 
-
     def test_sqrt(self):
         # Test valid inputs
         for i in range(5):
@@ -37,7 +37,6 @@ class ApplicationTest(unittest.TestCase):
 
         # Test invalid input
         self.assertRaises(ValueError, self.calc.sqrt, -1)
-
 
     def test_exp(self):
         # Test valid inputs
