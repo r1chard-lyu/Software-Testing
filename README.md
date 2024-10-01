@@ -1,16 +1,15 @@
 # NYCU-Software-Testing-2023
 
-311555009 呂義信
+## Course Description
+This course is NYCU Software Testing 2023, and it consists of the following lab sessions.
 
-![example workflow](https://github.com/Richard-YH/311555009-ST-2023/actions/workflows/main.yml/badge.svg)
+* Lab01 : Unit Testing (Python unittest) 
+* Lab02 : Mock Testing (unittest.mock) 
+* Lab03 : Continuous Integration (Python, Github CI) 
+* Lab04 : Web Applications Testing (Selenium) 
+* Lab05 : LLVM Pass 
+* Lab06 : Program Security Detect 
+* Lab07 : Fuzz Testing (AFL) 
+* Lab08 : Symbolic Execution 
 
-![Lab01 workflow](https://github.com/Richard-YH/311555009-ST-2023/actions/workflows/Lab01-CI.yml/badge.svg)
 
-![Lab02 workflow](https://github.com/Richard-YH/311555009-ST-2023/actions/workflows/Lab02-CI.yml/badge.svg)
-
-![Lab03 workflow](https://github.com/Richard-YH/311555009-ST-2023/actions/workflows/Lab03-CI.yml/badge.svg)
-
-![Lab04 workflow](https://github.com/Richard-YH/311555009-ST-2023/actions/workflows/Lab04-CI.yml/badge.svg)
-
-
-![Lab05 workflow](https://github.com/Richard-YH/311555009-ST-2023/actions/workflows/Lab05-CI.yml/badge.svg)

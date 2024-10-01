@@ -1,0 +1,34 @@
+name: Midterm CI
+run-name: Midterm CI is testing out GitHub Actions 🚀
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          cd Midterm
+          python -m pip install --upgrade pip
+          python -m pip install coverage
+          python -m pip install selenium
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Run Q1
+        run: |
+          cd Midterm/Part1
+          coverage run -m unittest discover
+          coverage report -m
+      - name: Run Q2
+        run: |
+          cd Midterm/Part2
+          python3 app.py
+      
